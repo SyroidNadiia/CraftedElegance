@@ -18,6 +18,7 @@ const EmbroiderySection = ({
     <Section className={styles.section}>
       <Container>
         <Suspense fallback={<BoxesSkeleton />}>
+          
           <EmbroideryList
             dict={dict}
             embroidery={embroidery}

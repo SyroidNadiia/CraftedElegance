@@ -378,7 +378,7 @@ export interface buildOrderDataI {
 
 export interface EmbroiderySectionProps {
   dict: ButtonsTranslation;
-  embroidery: Promise<EmbroideryDetailsI[]>;
+  embroidery: EmbroideryDetailsI[];
   toastMessage: string;
   lang: Locale;
 }
@@ -400,3 +400,6 @@ export interface EmbroideryI {
   images: string[];
   slug: string;
 }
+
+
+// EmbroideryDetailsI;

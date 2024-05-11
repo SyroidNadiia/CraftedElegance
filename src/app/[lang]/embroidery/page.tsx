@@ -32,7 +32,7 @@ const Embroidery = async ({
     },
   } = await getDictionary(lang);
   const currentLang = convertToServerLocale(lang);
-  const promise = fetchEmbroidery(currentLang);
+  const promise = await fetchEmbroidery(currentLang);
 
   return (
     <>

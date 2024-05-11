@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Price from '@components/components/shared/Price/Price';
 import Typography from '@components/components/Typography/Typography';
-import type { ButtonsTranslation,EmbroideryDetailsI } from '@components/types';
+import type { ButtonsTranslation, EmbroideryDetailsI } from '@components/types';
 import { Locale } from '@i18n';
 
 import BuyButton from '../BuyButton/BuyButton';
@@ -23,6 +23,9 @@ const EmbroideryCard: React.FC<EmbroideryCardProps> = ({
   lang,
 }) => {
   const { id, name, images, price, description, slug } = embroidery;
+  console.log('name', name);
+  console.log('images', images);
+  
   return (
     <li className={styles.card}>
       <EmbroideryImgSlider img={images} />
