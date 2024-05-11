@@ -1,7 +1,5 @@
 import AboutUsSection from '@components/components/AboutUsSection/AboutUsSection';
 import Hero from '@components/components/Hero/Hero';
-import Instagram from '@components/components/Instagram/Instagram';
-import Quote from '@components/components/Quote/Quote';
 import Subscription from '@components/components/Subscription/Subscription';
 import type { Locale } from '@i18n';
 import { getDictionary } from '@lib/utils/dictionary';
@@ -15,7 +13,7 @@ export async function generateMetadata({
 }) {
   const { navigation } = await getDictionary(lang);
   return {
-    title: `Valwax | ${navigation.home}`,
+    title: `CraftedElegance | ${navigation.home}`,
   };
 }
 
@@ -26,7 +24,7 @@ export default async function Home({
 }) {
   const {
     page: {
-      home: { hero, about, quote, compass, subscription },
+      home: { hero, about, compass, subscription },
       checkout: {
         form: {
           errorMessages: { emailReq, validEmail },
@@ -41,9 +39,7 @@ export default async function Home({
     <>
       <Hero dict={hero} />
       <AboutUsSection dict={about} />
-      <Quote dict={quote} />
       <Compass dict={compass} lang={lang} />
-      <Instagram />
       <Subscription
         dict={{ subscription, emailReq, validEmail }}
         toastDict={{ successSubscription, failedRequest }}

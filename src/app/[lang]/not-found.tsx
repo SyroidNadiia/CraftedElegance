@@ -53,7 +53,7 @@ export default function NotFound() {
           src={notFoundImg}
           alt={
             dictionary?.altText ||
-            'An image of a young boy holding a lit candle close to his chest, creating a warm and intimate atmosphere.'
+            'An image of a young boy holding a lit decoration close to his chest, creating a warm and intimate atmosphere.'
           }
           sizes="(min-width: 1230px) 190px, 
           (min-width: 768px) 198px,

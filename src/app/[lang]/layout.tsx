@@ -19,7 +19,7 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   description:
-    'Valwax is an online candle store. Explore our wide range of candle products, including soy candles, coconut candles, and palm candles. Customize your own candles and choose from various payment and delivery options.',
+    'CraftedElegance is where art meets elegance. Discover a unique collection of handcrafted jewelry, meticulously designed to reflect the beauty and individuality of each wearer. From classic to contemporary, our pieces are crafted with passion and skill, offering a wide selection of adornments to complement your style. Join our community and find the perfect accessory to express your uniqueness and allure.',
 };
 
 export async function generateStaticParams() {

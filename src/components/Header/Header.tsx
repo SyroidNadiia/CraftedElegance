@@ -6,7 +6,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import type { NavDictI } from '@components/types';
 import { useModalContext } from '@context/ModalContext';
 import type { Locale } from '@i18n';
-import logo from '@images/icons/header-logo.svg';
+import logo from '@images/icons/logo.svg';
 import sm_logo from '@images/icons/sm-logo.svg';
 import { useWindowSize } from 'usehooks-ts';
 

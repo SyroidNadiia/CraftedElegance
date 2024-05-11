@@ -2,7 +2,7 @@ import { StaticImageData } from 'next/image';
 import { UseFormReturn } from 'react-hook-form';
 import { Locale } from '@i18n';
 
-export interface IBoxKit {
+export interface IBagsKit {
   container: string;
   wax: string;
   wick: string;
@@ -10,7 +10,7 @@ export interface IBoxKit {
   matchsticks: string;
 }
 
-export interface BoxDetailsI {
+export interface BagsDetailsI {
   id: string;
   images: string[];
   title: string;
@@ -22,7 +22,7 @@ export interface BoxDetailsI {
   slug: string;
   volume: string;
   text: string;
-  kit: IBoxKit;
+  kit: IBagsKit;
 }
 
 export interface ComponentI {
@@ -36,7 +36,7 @@ export interface IAroma {
   baseNotes: string[];
 }
 
-export interface CandleDetailsI {
+export interface DecorationDetailsI {
   id: string;
   images: string[];
   title: string;
@@ -204,15 +204,16 @@ export interface ProductListDictionary {
 
 export interface NavDictI {
   home: string;
-  candles: string;
-  soy: string;
-  coconut: string;
-  palm: string;
-  createYourOwn: string;
+  decorations: string;
+  bracelet: string;
+  earrings: string;
+  necklace: string;
+  embroidery: string;
   paymentAndDelivery: string;
-  boxes: string;
+  bags: string;
 }
-export interface BoxI {
+
+export interface BagsI {
   id: string;
   img: string[];
   title: string;
@@ -240,7 +241,7 @@ export interface FilterI {
   closeModal?: () => void;
 }
 
-export interface CandlesSectionI {
+export interface DecorationsSectionI {
   dict: {
     filter: FilterT;
   };
@@ -352,9 +353,9 @@ export interface ButtonsTranslation {
   reviewBtn: string;
 }
 
-export interface BoxesSectionProps {
+export interface BagsSectionProps {
   dict: ButtonsTranslation;
-  boxes: Promise<BoxDetailsI[]>;
+  bags: Promise<BagsDetailsI[]>;
   toastMessage: string;
   lang: Locale;
 }
@@ -368,10 +369,34 @@ export interface UseScrollbarProps {
 
 export type ServerLocale = 'UA' | 'EN';
 
-
 export interface buildOrderDataI {
-  dataForm: CheckoutFormValues,
-  cartProducts: ICartProducts,
-  cartTotalPrice: number,
-  dictParam: configuratorSectionI
+  dataForm: CheckoutFormValues;
+  cartProducts: ICartProducts;
+  cartTotalPrice: number;
+  dictParam: configuratorSectionI;
+}
+
+export interface EmbroiderySectionProps {
+  dict: ButtonsTranslation;
+  embroidery: Promise<EmbroideryDetailsI[]>;
+  toastMessage: string;
+  lang: Locale;
+}
+
+export interface EmbroideryDetailsI {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  images: string[];
+  slug: string;
+}
+
+export interface EmbroideryI {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  images: string[];
+  slug: string;
 }

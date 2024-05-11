@@ -2,22 +2,22 @@ import type { NavDictI } from '@components/types';
 
 export const generateNavLinks = ({
   home,
-  candles,
-  soy,
-  coconut,
-  palm,
-  createYourOwn,
+  decorations,
+  bracelet,
+  earrings,
+  necklace,
+  embroidery,
   paymentAndDelivery,
-  boxes,
+  bags,
 }: NavDictI) => {
   return {
     [home]: '',
-    [candles]: '/candles',
-    [soy]: '/candles/soy-candles',
-    [coconut]: '/candles/coconut-candles',
-    [palm]: '/candles/palm-candles',
-    [createYourOwn]: '/create-your-own',
-    [boxes]: '/boxes',
+    [decorations]: '/decorations',
+    [bracelet]: '/decorations/sbracelet',
+    [earrings]: '/decorations/earrings',
+    [necklace]: '/decorations/necklace',
+    [embroidery]: '/embroidery',
+    [bags]: '/bags',
     [paymentAndDelivery]: '/payment-and-delivery',
   };
 };

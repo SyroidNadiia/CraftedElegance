@@ -3,25 +3,35 @@
     "home": {
       "hero": {
         "heading": [
-          ["Turn on the light,", "awaken emotions,", "create inspiration!"],
-          ["Turn on the light,", "awaken emotions,", "create inspiration!"],
-          ["Turn on the light,", "awaken emotions,", "create inspiration!"]
+          [
+            "Embrace your inner hero",
+            "with handcrafted jewelry -",
+            "Be unique, be you!"
+          ],
+          [
+            "Embrace your inner hero",
+            "awith handcrafted jewelry -",
+            "Be unique, be you!"
+          ],
+          [
+            "Embrace your inner hero",
+            "with handcrafted jewelry -",
+            "Be unique, be you!"
+          ]
         ],
         "buttonText": "View the Catalog"
       },
       "about": {
         "title": "About us",
-        "text1": "We believe that every candle has its own story and we are happy to share this magic with you. Our candles are more than just objects. They are created with love and meticulous attention to detail to ignite your hearts and bring comfort to your special moments.",
-        "text2": "VALWAX is yours, special. Welcome to our world of magical burning. Feel the touch of art and the unique aura of our candles.",
-        "text3": "Let us create a fiery atmosphere for you, where every moment becomes special and exceptional. Touch the magic of light with our unique candles. Release your inner creativity and create your own special world where every candle is a small miracle."
+        "text1": "CraftedElegance is where art meets elegance. We are a unique destination offering handcrafted jewelry that reflects the beauty and individuality of each person.",
+        "text2": "Our mission is to help you express your style and personality through our refined and expertly crafted pieces. From classic to contemporary, we provide a wide selection of unique adornments that will make your look truly distinctive. Each piece is infused with the passion and skill of our artisans, and we are delighted to share this with you.",
+        "text3": "Join our CraftedElegance community and let us assist you in finding the perfect accessory that enhances your uniqueness and allure."
       },
-      "quote": {
-        "text": "A candle lit with love can illuminate dark corners"
-      },
+
       "compass": {
-        "candles": "Candles",
-        "boxes": "Boxes",
-        "createYouOwn": "Create your candle"
+        "decorations": "Decorations",
+        "bags": "Bags",
+        "embroidery": "Embroidery"
       },
       "subscription": {
         "title": "Subscribe to our newsletter",
@@ -29,28 +39,28 @@
         "buttonText": "Subscribe"
       }
     },
-    "candles": {
-      "soy-candles": {
+    "decorations": {
+      "bracelet": {
         "waxDesc": {
           "title": "Why soy?",
           "text": "Soy wax is safe. It is not toxic and does not evaporate harmful substances. The low melting point allows you to use candles as long as possible. It is a vegetable wax that is produced from soybeans - a natural and restorative product. Soy wax has a good performance in the solid and molten state of both essential oils and specially formulated synthetic oils."
         }
       },
-      "palm-candles": {
+      "earrings": {
         "waxDesc": {
           "title": "Why palm?",
           "text": "Palm wax is obtained from the fruits of palm trees that grow in tropical regions. Palm wax has a high melting point, which allows candles to burn longer. You will enjoy the warm and cozy atmosphere created by candles with palm wax for a long time. And the frosty patterns of palm wax will enchant you."
         }
       },
-      "coconut-candles": {
+      "necklace": {
         "waxDesc": {
           "title": "Why coconut?",
           "text": "Coconut wax is a natural product. By choosing coconut wax for your candles, you help preserve the environment and support nature. This wax has a natural and pleasant coconut aroma, which adds a special charm to your candles. It creates a warm and cozy atmosphere in any room. Most often used for massage candles."
         }
       },
       "tabs": {
-        "fullTitle": ["Soy candles", "Coconut candles", "Palm candles"],
-        "abbreviatedTitle": ["Soy", "Coconut", "Palm"]
+        "fullTitle": ["Decorations", "Bracelet", "Earrings"],
+        "abbreviatedTitle": ["Decorations", "Bracelet", "Earrings"]
       },
       "filter": {
         "title": "Filter",
@@ -123,13 +133,26 @@
       }
     },
 
-    "boxes": {
+    "bags": {
       "header": {
         "title": "Boxes for your creativity"
       },
       "info": {
         "title": "Boxes for your creativity",
         "text": "Each box is created for the most pleasant emotions. Plunge into this unusual atmosphere, become a real candlestick maker, create a miracle with your own hands. These magical boxes will decorate your evening with a girlfriend or friend, or with a loved one, or give you complete freedom and meditative silence to create a candle on your own. In each box, you will receive an instruction that will help you get everything right."
+      },
+      "section": {
+        "buyBtn": "Buy",
+        "reviewBtn": "Review"
+      }
+    },
+    "embroidery": {
+      "header": {
+        "title": "Embroidery"
+      },
+      "info": {
+        "title": "Embroidery",
+        "text": "Discover our stunning collection of embroidered shirts, capturing beauty and original design.Embrace uniqueness and national charm with our embroidered shirts – a symbol of Ukrainian culture and tradition."
       },
       "section": {
         "buyBtn": "Buy",
@@ -158,75 +181,7 @@
         "paymentInfo": "Delivery payment is not included in the product's price and is paid by the recipient at the New Mail office, according to New Mail's tariffs, except for cases of online delivery payment."
       }
     },
-    "createYourOwn": {
-      "welcome": {
-        "title": "Welcome to your personal candle-making studio!",
-        "text": [
-          "Welcome to the Candle Maker!",
-          "Here, you become an artist of light, and we believe that each candle you create will be unique and expressive, just like you. A candle is more than just a flame. It's the ambiance you craft. It's relaxation and tranquility after a long day. It's a gift for loved ones. It's warmth and comfort."
-        ],
-        "buttonText": "How to make a candle?",
-        "instruction": [
-          "Welcome to the Candle Maker's Studio!",
-          "Would you like to create a unique candle that matches your taste and mood? You're in the right place! Our candle builder allows you to choose all the necessary components to create the perfect candle just for you. Here are the steps you need to follow:",
-          "1. Choose a container shape. We have a wide range of containers, from classic cylindrical to unusual shapes, so you can express your individuality.",
-          "2. Select the type of wax: we offer three types of wax for your candles: soy, coconut, and palm. Each of them has its unique advantages, and you can choose the one you prefer.",
-          "3. Choose the scent: pick the fragrance you want to experience when your candle is burning. We have a wide variety of scents, from fresh citrus to warm vanilla notes.",
-          "4. Add a wick: to make your candle have a wick, select it. A wick will add a special charm to your candle and make the burning more even.",
-          "5. Pick the color: choose the color of the wax and container that you like the most. Your candle can be bright and vibrant or neutral and cozy (without color) - it's your choice.",
-          "6. Customization and completion: after completing these steps, we will create a unique candle for you that will meet all your wishes.",
-          "Don't wait, start creating your candle right now and enjoy the atmosphere it will create in your space. Thank you for choosing us for your creative ideas and special moments!"
-        ]
-      },
-      "configurator": {
-        "container": {
-          "number": "1.",
-          "title": "Select container",
-          "options": [
-            "Container 1",
-            "Container 2",
-            "Container 3",
-            "Container 4"
-          ]
-        },
-        "wax": {
-          "number": "2.",
-          "title": "Choose wax",
-          "options": ["Soy", "Coconut", "Palm"]
-        },
-        "aroma": {
-          "number": "3.",
-          "title": "Choose a flavor",
-          "options": [
-            "Pure Cotton",
-            "Cinnamon & Vanilla",
-            "Rose Petals",
-            "Fresh Coffee",
-            "Dry Gin",
-            "Pumpkin Spice",
-            "Grapefruit and Mint",
-            "Freshly Cut Grass",
-            "Black Sea",
-            "Ginger and Spices",
-            "Peach Nectar",
-            "Fallen Leaves",
-            "Cashmere Plum",
-            "Christmas Fire",
-            "The earth after the rain"
-          ]
-        },
-        "wick": {
-          "number": "4.",
-          "title": "Choose the number of wicks",
-          "options": ["One", "Two", "Three", "Four"]
-        },
-        "color": {
-          "number": "5.",
-          "title": "Choose a color",
-          "options": ["Yellow", "Red", "Lavender", "Black", "White"]
-        }
-      }
-    },
+    
     "privacyPolicy": {
       "header": {
         "title": "Privacy policy"
@@ -406,11 +361,11 @@
   },
 
   "breadcrumbs": {
-    "soy-candles": "Soy candles",
-    "coconut-candles": "Coconut candles",
-    "palm-candles": "Palm candles",
-    "boxes": "Boxes",
-    "createYourOwn": "Create your own",
+    "bracelet": "Bracelet",
+    "earrings": "Earrings",
+    "necklace": "Necklace",
+    "bags": "Bags",
+    "embroidery": "Embroidery",
     "privacyPolicy": "Privacy policy",
     "paymentAndDelivery": "Payment and delivery",
     "checkout": "Cart",
@@ -419,13 +374,13 @@
 
   "navigation": {
     "home": "Home",
-    "candles": "Candles",
-    "soy": "Soy candles",
-    "coconut": "Coconut candles",
-    "palm": "Palm candles",
-    "createYourOwn": "Create your own",
+    "decorations": "Decorations",
+    "bracelet": "Bracelet",
+    "earrings": "Earrings",
+    "necklace": "Necklace",
+    "embroidery": "Embroidery",
     "paymentAndDelivery": "Payment and delivery",
-    "boxes": "Boxes"
+    "bags": "Bags"
   },
 
   "relatedProducts": {
@@ -455,7 +410,7 @@
 
   "metaInfo": {
     "successOrder": {
-      "description": "Unlock a seamless shopping experience at Valwax. Your order is in progress. Take action and explore more! Buy now with Valwax."
+      "description": "Unlock a seamless shopping experience at CraftedElegance. Your order is in progress. Take action and explore more! Buy now with CraftedElegance."
     }
   },
 

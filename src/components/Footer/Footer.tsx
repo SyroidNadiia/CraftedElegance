@@ -5,7 +5,7 @@ import { CiMail } from 'react-icons/ci';
 import { PiPhoneThin } from 'react-icons/pi';
 import type { NavDictI } from '@components/types';
 import type { Locale } from '@i18n';
-import Logo from '@images/logo/Logo.svg';
+import Logo from '@images/icons/logo.svg';
 
 import Container from '../Container/Container';
 import Navigation from '../Navigation/Navigation';
@@ -23,15 +23,15 @@ interface FooterI {
   navDict: NavDictI;
 }
 
-const PHONE_NUMBER = '+38 095 888 46 14';
-const EMAIL_ADDRESS = 'valwaxua@gmail.com';
+const PHONE_NUMBER = '+38 093 222 33 44';
+const EMAIL_ADDRESS = 'craftedElegance@gmail.com';
 
 const Footer: React.FC<FooterI> = ({ lang, dict, navDict }) => {
   return (
     <footer className={styles.footer}>
       <Container>
         <div className={styles.footerWrapper}>
-          <Image src={Logo} alt="Logo" width={140} height={114} />
+          <Image src={Logo} alt="Logo" width={110} height={74} />
           <Navigation
             variant="footer"
             className={styles.footerNavigation}
@@ -88,11 +88,13 @@ const Footer: React.FC<FooterI> = ({ lang, dict, navDict }) => {
             </Typography>
             <div className={styles.copyWrapper}>
               <Typography variant="bodyRegular">{dict.copyright}</Typography>
-              <div className={styles.copyrightValwax}>
+              <div className={styles.copyrightCraftedElegance}>
                 <AiOutlineCopyrightCircle
                   style={{ width: 16, height: 16 }}
                 ></AiOutlineCopyrightCircle>
-                <Typography variant="bodyRegular">2023 Valwax</Typography>
+                <Typography variant="bodyRegular">
+                  2024 CraftedElegance
+                </Typography>
               </div>
             </div>
           </Link>

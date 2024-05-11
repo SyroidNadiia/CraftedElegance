@@ -16,7 +16,7 @@ export async function generateMetadata({
   } = await getDictionary(lang);
 
   return {
-    title: `Valwax | ${breadcrumbs.successOrder}`,
+    title: `CraftedElegance | ${breadcrumbs.successOrder}`,
     description,
   };
 }

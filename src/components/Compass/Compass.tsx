@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Locale } from '@i18n';
-import boxImg from '@images/Compass/box-card.jpg';
-import candleImg from '@images/Compass/candle-card.jpg';
-import createImg from '@images/Compass/create-card.jpg';
+import bagsImg from '@images/Compass/bags1.jpg';
+import decorationsImg from '@images/Compass/decorations1.jpg';
+import embroideryImg from '@images/Compass/embroidery2.jpg';
 
 import Container from '../Container/Container';
 import Section from '../Section/Section';
@@ -13,9 +13,9 @@ import styles from './Compass.module.scss';
 
 interface CompassI {
   dict: {
-    candles: string;
-    boxes: string;
-    createYouOwn: string;
+    decorations: string;
+    bags: string;
+    embroidery: string;
   };
   lang: Locale;
 }
@@ -27,12 +27,12 @@ const Compass: React.FC<CompassI> = ({ dict, lang }) => {
         {/* <h2>Navigation section</h2> */}
         <div className={styles.wrapper}>
           <Link
-            href={`/${lang}/candles/soy-candles`}
+            href={`/${lang}/decorations/bracelet`}
             className={`${styles.candle} ${styles.card}`}
           >
             <Image
-              src={candleImg}
-              alt="candle"
+              src={decorationsImg}
+              alt="decorations"
               className={styles.image}
               sizes="(min-width: 1230) 588px,
               (min-width: 1024) 480px,
@@ -48,17 +48,17 @@ const Compass: React.FC<CompassI> = ({ dict, lang }) => {
                 color="var(--cl-gray-50)"
                 className={styles.text}
               >
-                {dict.candles}
+                {dict.decorations}
               </Typography>
             </div>
           </Link>
           <Link
-            href={`/${lang}/boxes`}
+            href={`/${lang}/bags`}
             className={`${styles.box} ${styles.card}`}
           >
             <Image
-              src={boxImg}
-              alt="box"
+              src={bagsImg}
+              alt="bags"
               className={styles.image}
               sizes="(min-width: 1230) 588px,
                     (min-width: 1024) 480px,
@@ -73,17 +73,17 @@ const Compass: React.FC<CompassI> = ({ dict, lang }) => {
                 color="var(--cl-gray-50)"
                 className={styles.text}
               >
-                {dict.boxes}
+                {dict.bags}
               </Typography>
             </div>
           </Link>
           <Link
-            href={`/${lang}/create-your-own`}
+            href={`/${lang}/embroidery`}
             className={`${styles.create} ${styles.card}`}
           >
             <Image
-              src={createImg}
-              alt="create"
+              src={embroideryImg}
+              alt="embroidery"
               className={styles.image}
               sizes="(min-width: 1230) 588px,
               (min-width: 1024) 480px,
@@ -98,7 +98,7 @@ const Compass: React.FC<CompassI> = ({ dict, lang }) => {
                 color="var(--cl-gray-50)"
                 className={styles.text}
               >
-                {dict.createYouOwn}
+                {dict.embroidery}
               </Typography>
             </div>
           </Link>

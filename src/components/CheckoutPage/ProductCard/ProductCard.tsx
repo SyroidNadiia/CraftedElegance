@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { paramData } from '@components/components/CreateYourOwn/ConfiguratorSection/Configurator/configuratorData';
 import CandleQuantity from '@components/components/shared/CandleQuantity/CandleQuantity';
 import Price from '@components/components/shared/Price/Price';
 import Typography from '@components/components/Typography/Typography';
@@ -55,8 +54,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const isCustomCandle = slug.includes('create-your-own');
   const isCandle = slug.includes('candles');
   const isBox = slug.includes('boxes');
-  const paramsObject = paramData(dictParam);
-  const boxAroma = typeof aroma === 'number' ? paramsObject.aroma[aroma] : '';
 
   const defineProductQuantity = () => {
     if (isCustomCandle) {
@@ -139,14 +136,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 {description}
               </Typography>
             )}
-            {isBox && boxAroma && (
+            {isBox && (
               <Typography
                 variant="bodyS"
                 color="var(--cl-gray-500)"
                 className={styles.card__description}
               >
                 <span>{propertyNames.aroma} - </span>
-                <span className={styles.pinkText}>{boxAroma}</span>
               </Typography>
             )}
             {descriptionKeys && (
@@ -163,11 +159,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                       {propertyNames[property as TProperty]} -{' '}
                       <span className={styles.pinkText}>
                         {/* Display the property value with pink text color */}
-                        {
-                          paramsObject[property as TProperty][
-                            description[property as TProperty] as number
-                          ]
-                        }
                       </span>
                       {/* Add a period if it's the last property, or a comma if not */}
                       {i === descriptionKeys.length - 1 ? (

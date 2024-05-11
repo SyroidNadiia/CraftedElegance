@@ -10,7 +10,7 @@ export async function generateMetadata({
 }) {
   const { breadcrumbs } = await getDictionary(lang);
   return {
-    title: `Valwax | ${breadcrumbs.checkout}`,
+    title: `CraftedElegance | ${breadcrumbs.checkout}`,
   };
 }
 
@@ -21,10 +21,11 @@ export default async function Checkout({
 }) {
   const {
     breadcrumbs,
-    page: { checkout, createYourOwn: { configurator }},
-    general: {
-      messages
+    page: {
+      checkout,
+      embroidery: { configurator },
     },
+    general: { messages },
   } = await getDictionary(lang);
 
   return (

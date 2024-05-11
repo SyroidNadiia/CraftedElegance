@@ -28,20 +28,25 @@ const Navigation: React.FC<NavigationPropsI> = ({
   navDict,
 }) => {
   const pathname = usePathname();
-  const [isCandlesMenuOpen, toggleDropdown, setIsCandlesMenuOpen] = useToggle(false);
+  const [isCandlesMenuOpen, toggleDropdown, setIsCandlesMenuOpen] =
+    useToggle(false);
   const langPrefix = lang === 'en' ? '/en' : '/uk';
   const isActive = (link: string) => pathname === `${langPrefix}${link}`;
   const navLinks = generateNavLinks(navDict);
   const navItems = [
     navDict.home,
-    navDict.candles,
-    navDict.createYourOwn,
-    navDict.boxes,
+    navDict.decorations,
+    navDict.embroidery,
+    navDict.bags,
     navDict.paymentAndDelivery,
   ];
-  const candlesMenuItems = [navDict.soy, navDict.coconut, navDict.palm];
+  const candlesMenuItems = [
+    navDict.bracelet,
+    navDict.earrings,
+    navDict.necklace,
+  ];
 
-  useCloseDropdownOnNavigation(setIsCandlesMenuOpen)
+  useCloseDropdownOnNavigation(setIsCandlesMenuOpen);
 
   const isCandlesActive = () => {
     for (const candlesItem of candlesMenuItems) {
@@ -68,9 +73,11 @@ const Navigation: React.FC<NavigationPropsI> = ({
         {navItems.map((item, index) => (
           <li
             key={index}
-            className={`${item === navDict.candles ? navigationItemClass : ''}`}
+            className={`${
+              item === navDict.decorations ? navigationItemClass : ''
+            }`}
           >
-            {item === navDict.candles ? (
+            {item === navDict.decorations ? (
               <div className={styles.dropdown} onClick={toggleDropdown}>
                 <div className={centerContentClass}>
                   <span
@@ -78,7 +85,7 @@ const Navigation: React.FC<NavigationPropsI> = ({
                       isCandlesActive() ? styles.activeLink : ''
                     }`}
                   >
-                    {navDict.candles}
+                    {navDict.decorations}
                   </span>
                   {isCandlesMenuOpen ? (
                     <MdKeyboardArrowUp

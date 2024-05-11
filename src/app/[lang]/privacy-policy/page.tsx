@@ -10,7 +10,7 @@ export async function generateMetadata({
 }) {
   const { breadcrumbs } = await getDictionary(lang);
   return {
-    title: `Valwax | ${breadcrumbs.privacyPolicy}`,
+    title: `CraftedElegance | ${breadcrumbs.privacyPolicy}`,
   };
 }
 

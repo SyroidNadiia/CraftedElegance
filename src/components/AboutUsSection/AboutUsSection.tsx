@@ -45,14 +45,14 @@ const AboutUsSection: React.FC<HeroI> = ({ dict }) => {
             <div className={styles.aboutUsImagesWrapper}>
               <Image
                 src={Image1}
-                alt="Candle"
+                alt="decoration"
                 width={282}
                 height={285}
                 className={styles.aboutUsImage}
               />
               <Image
                 src={Image2}
-                alt="Candle"
+                alt="decoration"
                 width={282}
                 height={285}
                 className={styles.aboutUsImage}
@@ -62,7 +62,7 @@ const AboutUsSection: React.FC<HeroI> = ({ dict }) => {
           <div className={styles.aboutUsImageContainer}>
             <Image
               src={Image3}
-              alt="Candle"
+              alt="decoration"
               fill
               className={styles.aboutUsImage}
               priority
