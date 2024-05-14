@@ -4,26 +4,24 @@ import { FiMinus, FiPlus } from 'react-icons/fi';
 import Typography from '@components/components/Typography/Typography';
 import { useCartActionsContext } from '@context/CartContext';
 
-import styles from './CandleQuantity.module.scss';
+import styles from './DecorationQuantity.module.scss';
 
-interface CandleQuantityProps {
+interface DecorationQuantityProps {
   className?: string;
   isCartQuantity?: boolean;
   id?: string;
   qty?: number;
   setQuantity?: Dispatch<SetStateAction<number>>;
-  type?: 'box' | 'candle' | 'customCandle';
-  aroma?: number;
+  type?: 'decorations' | 'embroidery';
 }
 
-const CandleQuantity: React.FC<CandleQuantityProps> = ({
+const CandleQuantity: React.FC<DecorationQuantityProps> = ({
   className,
   isCartQuantity,
   id,
   qty,
   setQuantity,
   type,
-  aroma,
 }) => {
   const { toggleQuantity } = useCartActionsContext();
 
@@ -44,7 +42,7 @@ const CandleQuantity: React.FC<CandleQuantityProps> = ({
           {' '}
           <button
             onClick={() =>
-              id && type && toggleQuantity({ id, value: 'dec', type, aroma })
+              id && type && toggleQuantity({ id, value: 'dec', type })
             }
             className={styles.candleCount}
           >
@@ -55,7 +53,7 @@ const CandleQuantity: React.FC<CandleQuantityProps> = ({
           </Typography>
           <button
             onClick={() =>
-              id && type && toggleQuantity({ id, value: 'inc', type, aroma })
+              id && type && toggleQuantity({ id, value: 'inc', type })
             }
             className={styles.candleCount}
           >

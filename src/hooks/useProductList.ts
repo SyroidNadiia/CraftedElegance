@@ -5,8 +5,8 @@ import { getInitialCartProducts } from '@components/helpers';
 import { convertToServerLocale } from '@components/helpers/convertToServerLocale';
 import { extractErrorMessage } from '@components/helpers/extractErrorMessage';
 import { useCartContext } from '@context/CartContext';
-import { fetchCartBoxes } from '@lib/api-services/fetchCartBoxes';
-import { fetchCartCandles } from '@lib/api-services/fetchCartCandles';
+import { fetchCartDecorations } from '@lib/api-services/fetchCartDecorations';
+import { fetchCartEmbroidery } from '@lib/api-services/fetchCartEmbroidery';
 
 import { useLangFromPathname } from './useLangFromPathname';
 import { getStorageValue } from './useLocalStorage';
@@ -24,24 +24,30 @@ export const useProductList = () => {
     hasError: false,
   });
 
-  const getCandles = async (candlesIds: string[], candles: ICartCandle[]) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getDecorations = async (
+    decorationsIds: string[],
+    decorations: ICartDecoration[]
+  ) => {
     try {
-      if (candlesIds.length > 0) {
+      if (decorationsIds.length > 0) {
         handleStatus('isLoading', true);
-        const data = await fetchCartCandles({
+        const data = await fetchCartDecorations({
           lang: currentLang,
-          ids: candlesIds,
+          ids: decorationsIds,
         });
 
         if (!Array.isArray(data)) {
-          throw new Error('Error by fetching cart candles');
+          throw new Error('Error by fetching cart decorations');
         }
 
-        const modifiedCandles = candles?.map(({ id, quantity, price }) => {
-          const candleData = data?.find(item => item.id === id)!;
-          return { ...candleData, quantity, price };
-        });
-        setProducts(prevProducts => [...prevProducts, ...modifiedCandles]);
+        const modifiedDecorations = decorations?.map(
+          ({ id, quantity, price }) => {
+            const decorationData = data?.find(item => item.id === id)!;
+            return { ...decorationData, quantity, price };
+          }
+        );
+        setProducts(prevProducts => [...prevProducts, ...modifiedDecorations]);
       }
     } catch (error: unknown) {
       handleStatus('hasError', true);
@@ -52,25 +58,35 @@ export const useProductList = () => {
     }
   };
 
-  const getBoxes = async (boxesIds: string[], boxes: ICartBox[]) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getEmbroidery = async (
+    embroideryIds: string[],
+    embroidery: ICartEmbroidery[]
+  ) => {
+    console.log('getEmbroidery', products);
     try {
-      if (boxesIds.length > 0) {
+      if (embroideryIds.length > 0) {
         handleStatus('isLoading', true);
-        const data = await fetchCartBoxes({
+        const data = await fetchCartEmbroidery({
           lang: currentLang,
-          ids: boxesIds,
+          ids: embroideryIds,
         });
 
         if (!Array.isArray(data)) {
-          throw new Error('Error by fetching cart boxes');
+          throw new Error('Error by fetching cart embroidery');
         }
 
-        const modifiedBoxes = boxes.map(({ id, quantity, aroma, price }) => {
-          const boxData = data.find(item => item.id === id)!;
-          return { ...boxData, quantity, aroma, price };
+        const modifiedEmbroidery = embroidery.map(({ id, quantity, price }) => {
+          const embroideryData = data.find(item => item.id === id)!;
+          return { ...embroideryData, quantity, price };
         });
 
-        setProducts(prevProducts => [...prevProducts, ...modifiedBoxes]);
+        console.log('modifiedEmbroidery', modifiedEmbroidery);
+        
+        setProducts(prevProducts => [...prevProducts, ...modifiedEmbroidery]);
+        
+        console.log('setProducts', products);
+
       }
     } catch (error: unknown) {
       handleStatus('hasError', true);
@@ -89,40 +105,38 @@ export const useProductList = () => {
       initCardProducts
     );
 
-    const initialState = [...cartItems.customCandles];
+    const { embroidery, decorations } = cartItems;
 
-    setProducts(initialState);
+    const embroideryIds = !cartProducts.embroidery.length
+      ? embroidery.map(item => item.id)
+      : cartProducts.embroidery.map(item => item.id);
+    const decorationsIds = !cartProducts.decorations.length
+      ? decorations.map(item => item.id)
+      : cartProducts.decorations.map(item => item.id);
 
-    const { boxes, candles } = cartItems;
+    const embroideryData = !cartProducts.embroidery.length
+      ? embroidery
+      : cartProducts.embroidery;
+    const decorationsData = !cartProducts.decorations.length
+      ? decorations
+      : cartProducts.decorations;
 
-    const boxesIds = !cartProducts.boxes.length
-      ? boxes.map(item => item.id)
-      : cartProducts.boxes.map(item => item.id);
-    const candlesIds = !cartProducts.candles.length
-      ? candles.map(item => item.id)
-      : cartProducts.candles.map(item => item.id);
+    getDecorations(decorationsIds, decorationsData);
+    getEmbroidery(embroideryIds, embroideryData);
+  }, [
+    cartProducts.embroidery,
+    cartProducts.decorations,
+    getDecorations,
+    getEmbroidery,
+    lang,
+  ]);
 
-    const boxesData = !cartProducts.boxes.length ? boxes : cartProducts.boxes;
-    const candlesData = !cartProducts.candles.length
-      ? candles
-      : cartProducts.candles;
-
-    getCandles(candlesIds, candlesData);
-    getBoxes(boxesIds, boxesData);
-  }, [lang]);
-
-  const handleDelete = ({ id, isBox, aroma }: IHandleDeleteParams) => {
+  const handleDelete = ({ id, isEmbroidery }: IHandleDeleteParams) => {
     setProducts(prevItems => {
-      if (!isBox) {
+      if (!isEmbroidery) {
         return prevItems.filter(item => item.id !== id);
       } else {
-        const position = prevItems.findIndex(
-          item =>
-            'aroma' in item &&
-            typeof aroma === 'number' &&
-            item.aroma === aroma &&
-            item.id === id
-        );
+        const position = prevItems.findIndex(item => item.id === id);
 
         return position !== -1
           ? prevItems.filter((_, index) => index !== position)
@@ -130,6 +144,8 @@ export const useProductList = () => {
       }
     });
   };
+  console.log('cartProducts', cartProducts);
+  console.log('useProductList', products);
 
   return {
     products,

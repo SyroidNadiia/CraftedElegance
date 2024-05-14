@@ -1,7 +1,6 @@
 export const getInitialCartProducts = () => {
   return {
-    boxes: [],
-    candles: [],
-    customCandles: [],
+    embroidery: [],
+    decorations: [],
   };
 };

@@ -1,30 +1,21 @@
 'use client';
 import { useState } from 'react';
-import { configuratorData } from '@components/components/CreateYourOwn/ConfiguratorSection/Configurator/configuratorData';
-import Parameter from '@components/components/CreateYourOwn/ConfiguratorSection/Configurator/Parameter/Parameter';
-import CandleQuantity from '@components/components/shared/CandleQuantity/CandleQuantity';
 import Typography from '@components/components/Typography/Typography';
-import { joinAromaNotes } from '@components/helpers/index';
-import { useCandleParam } from '@components/hooks';
-import {
-  BoxDetailsI,
-  ButtonsDictI,
-  CandleDetailsI,
-  configuratorSectionI,
-} from '@components/types';
+import { ButtonsDictI, EmbroideryDetailsI } from '@components/types';
 
 import AccordionSection from '../AccordionSection/AccordionSection';
 import BuyButtons from '../BuyButtons/BuyButtons';
+import DecorationQuantity from '../CandleQuantity/DecorationQuantity';
 
 import styles from './Description.module.scss';
 
 interface DescriptionProps {
-  product: BoxDetailsI | CandleDetailsI;
+  product: EmbroideryDetailsI;
   id: string;
   buttonsDict: ButtonsDictI;
   toastMessages: IToastMessages;
   productDescriptionDict: IProductDescriptionDict;
-  configuratorDict?: configuratorSectionI;
+  embroidery: EmbroideryDetailsI[];
 }
 
 const Description: React.FC<DescriptionProps> = ({
@@ -33,103 +24,38 @@ const Description: React.FC<DescriptionProps> = ({
   buttonsDict,
   toastMessages,
   productDescriptionDict,
-  configuratorDict,
+  embroidery,
 }) => {
   const [quantity, setQuantity] = useState(1);
-  const { paramCandle, handleChangeCandleParam } = useCandleParam();
 
-  const {
-    id: productId,
-    images,
-    title,
-    description,
-    price,
-    slug,
-    volume,
-  } = product;
+  const { id: productId, name, description, price, slug } = product;
 
-  const {
-    price: priceDict,
-    quantity: quantityDict,
-    topNotes,
-    baseNotes,
-    volume: volumeDict,
-    containerVolume: containerVolumeDict,
-    matchsticks: matchsticksDict,
-    wick: wickDict,
-    wax: waxDict,
-    aroma: aromaDict,
-    volumeLabel: volumeLabelDict,
-  } = productDescriptionDict;
+  const { price: priceDict, quantity: quantityDict } = productDescriptionDict;
 
-  const { aroma } = configuratorDict
-    ? configuratorData(configuratorDict)
-    : { aroma: { number: '', title: '', options: [] } };
-
-  const isCandlePage = id === 'candle_details';
-  const isBoxPage = id === 'box_details';
-
-  const candleAccordionContent = [
-    {
-      title: topNotes,
-      content: 'aroma' in product ? joinAromaNotes(product.aroma.topNotes) : '',
-    },
-    {
-      title: baseNotes,
-      content:
-        'aroma' in product ? joinAromaNotes(product.aroma.baseNotes) : '',
-    },
-    { title: volumeDict, content: `${volume} ${volumeLabelDict}` },
-  ];
-
-  const boxAccordionContent =
-    'kit' in product
-      ? ([
-          {
-            title: `${containerVolumeDict} ${volume} ${volumeLabelDict}`,
-            content: product.kit.container,
-          },
-          product.kit.matchsticks && {
-            title: matchsticksDict,
-            content: product.kit.matchsticks,
-          },
-          {
-            title: wickDict,
-            content: product.kit.wick,
-          },
-          {
-            title: waxDict,
-            content: product.kit.wax,
-          },
-          {
-            title: aromaDict,
-            content: product.kit.aromaToChoose,
-          },
-        ].filter(Boolean) as { title: string; content: string }[])
-      : [];
+  const isEmbroideryPage = id === 'embroidery_details';
 
   return (
-    <div className={styles.candleSectionWrapper}>
-      <div className={styles.candleWrapper}>
+    <div className={styles.descriptionWrapper}>
+      <div className={styles.productWrapper}>
         <Typography
           variant="bodyXLHeavy"
           color="var(--cl-primary-800)"
-          className={styles.candleTitle}
+          className={styles.title}
         >
-          {title}
+          {name}
         </Typography>
         <Typography
           variant="bodyRegular"
           color="var(--cl-gray-500)"
-          className={styles.candleDescription}
+          className={styles.description}
         >
           {description}
         </Typography>
-        <div className={styles.candeleCostWrapper}>
+        <div className={styles.costWrapper}>
           <Typography variant="button" color="var(--cl-gray-500)">
             {priceDict}:
           </Typography>
-          <div className={styles.candeleCost}>
+          <div className={styles.cost}>
             <Typography
               variant="subheadingMobile"
               color="var(--cl-primary-500)"
@@ -139,54 +65,29 @@ const Description: React.FC<DescriptionProps> = ({
             <span className={styles.costSymbol}>&#8372;</span>
           </div>
         </div>
-        <div className={styles.candeleQuantity}>
+        <div className={styles.quantity}>
           <Typography variant="button" color="var(--cl-gray-500)">
             {quantityDict}:
           </Typography>
-          <CandleQuantity qty={quantity} setQuantity={setQuantity} />
+          <DecorationQuantity qty={quantity} setQuantity={setQuantity} />
         </div>
-        {isBoxPage && (
-          <div className={styles.aromaAccordion}>
-            <Parameter
-              dict={aroma}
-              currentParam={paramCandle['aroma']}
-              onChangeParam={handleChangeCandleParam}
-              parameter="aroma"
-              shouldHaveNumber={false}
-            />
-          </div>
-        )}
         <BuyButtons
           product={{
             id: productId,
             slug,
             quantity,
-            aroma: paramCandle.aroma,
             price,
           }}
           buttonsDict={buttonsDict}
           toastMessages={toastMessages}
         />
-
-        {isCandlePage && (
-          <div className={styles.candleAccordion}>
-            {candleAccordionContent.map((component, index) => (
+        {isEmbroideryPage && (
+          <div className={styles.accordion}>
+            {embroidery.map((component, index) => (
               <AccordionSection
                 key={index}
-                title={component.title}
-                content={component.content}
-              />
-            ))}
-          </div>
-        )}
-
-        {isBoxPage && (
-          <div className={styles.candleAccordion}>
-            {boxAccordionContent.map((component, index) => (
-              <AccordionSection
-                key={index}
-                title={component.title}
-                content={component.content}
+                title={component.name}
+                content={component.description}
               />
             ))}
           </div>

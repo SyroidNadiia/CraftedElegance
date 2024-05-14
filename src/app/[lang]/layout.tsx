@@ -5,7 +5,7 @@ import Header from '@components/components/Header/Header';
 import ScrollToTopButton from '@components/components/ScrollToTopButton/ScrollToTopButton';
 import { CartContextProvider } from '@context/CartContext';
 import { ModalProvider } from '@context/ModalContext';
-import { ParamsCandleProvider } from '@context/ParamCandleContext';
+// import { ParamsDecorationProvider } from '@context/ParamDecorationContext';
 import { i18n, Locale } from '@i18n';
 import { getDictionary } from '@lib/utils/dictionary';
 
@@ -47,7 +47,7 @@ export default async function RootLayout({
       <body>
         <CartContextProvider>
           <ModalProvider>
-            <ParamsCandleProvider>
+            {/* <ParamsDecorationProvider> */}
               <Header
                 lang={params.lang}
                 dict={search}
@@ -56,7 +56,7 @@ export default async function RootLayout({
               />
               <main className={styles.main}>{children}</main>
               <Footer lang={params.lang} dict={footer} navDict={navigation} />
-            </ParamsCandleProvider>
+            {/* </ParamsDecorationProvider> */}
           </ModalProvider>
         </CartContextProvider>
         <ScrollToTopButton />

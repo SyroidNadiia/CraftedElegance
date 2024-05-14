@@ -4,39 +4,34 @@ import { DECREMENT, INCREMENT } from '@components/constants';
 import { getInitialCartProducts } from '@components/helpers';
 import { showToast } from '@components/helpers/showToast';
 import { useLocalStorage } from '@components/hooks/useLocalStorage';
-import { ICustomCandle } from '@components/types';
 
-interface IAddCandleToCartParams {
+interface IAddDecorationsToCartParams {
   id: string;
   toastMessage: string;
   quantity?: number;
   price: number;
 }
 
-interface IAddBoxToCartParams {
+interface IAddEmbroideryToCartParams {
   id: string;
   toastMessage: string;
-  aroma: number;
   quantity?: number;
   price: number;
 }
 
-interface IAddCustomCandleToCartParams {
-  customCandle: ICustomCandle;
+interface IAddCustomDecorationsToCartParams {
   toastMessage: string;
 }
 
 interface IToggleQuantityParams {
   id: string;
   value: typeof INCREMENT | typeof DECREMENT;
-  type: 'box' | 'candle' | 'customCandle';
-  aroma?: number;
+  type: 'embroidery' | 'decorations';
 }
 
 interface IDeleteCartItemParams {
   id: string;
-  type: 'box' | 'candle' | 'customCandle';
-  aroma?: number;
+  type: 'embroidery' | 'decorations';
   toastMessage: string;
 }
 
@@ -51,28 +46,21 @@ interface CartContextI {
 }
 
 interface CartActionsContextProps {
-  addCandleToCart: ({
+  addDecorationsToCart: ({
     id,
     toastMessage,
     quantity,
-  }: IAddCandleToCartParams) => void;
-  addBoxToCart: ({
+    price,
+  }: IAddDecorationsToCartParams) => void;
+  addEmbroideryToCart: ({
     id,
     toastMessage,
-    aroma,
     quantity,
-  }: IAddBoxToCartParams) => void;
-  addCustomCandleToCart: ({
-    customCandle,
-    toastMessage,
-  }: IAddCustomCandleToCartParams) => void;
+    price,
+  }: IAddEmbroideryToCartParams) => void;
+
   toggleQuantity: ({ id, value, type }: IToggleQuantityParams) => void;
-  deleteCartItem: ({
-    id,
-    type,
-    aroma,
-    toastMessage,
-  }: IDeleteCartItemParams) => void;
+  deleteCartItem: ({ id, type, toastMessage }: IDeleteCartItemParams) => void;
   clearCartProducts: () => void;
 }
 
@@ -87,71 +75,62 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
     initCardProducts
   );
 
-  const candlesQuantity =
-    cartProducts.candles.length > 0
-      ? cartProducts.candles.reduce((acc, item) => acc + item.quantity, 0)
+  const decorationsQuantity =
+    cartProducts.decorations.length > 0
+      ? cartProducts.decorations.reduce((acc, item) => acc + item.quantity, 0)
       : 0;
-  const boxesQuantity =
-    cartProducts.boxes.length > 0
-      ? cartProducts.boxes.reduce((acc, item) => acc + item.quantity, 0)
-      : 0;
-  const customCandleQuantity =
-    cartProducts.customCandles.length > 0
-      ? cartProducts.customCandles.reduce((acc, item) => acc + item.quantity, 0)
+  const embroideryQuantity =
+    cartProducts.embroidery.length > 0
+      ? cartProducts.embroidery.reduce((acc, item) => acc + item.quantity, 0)
       : 0;
 
-  const totalCartProducts =
-    candlesQuantity + boxesQuantity + customCandleQuantity ?? 0;
+  const totalCartProducts = decorationsQuantity + embroideryQuantity ?? 0;
 
-  const candlesTotalPrice =
-    cartProducts.candles.length > 0
-      ? cartProducts.candles.reduce(
+  const decorationsTotalPrice =
+    cartProducts.decorations.length > 0
+      ? cartProducts.decorations.reduce(
           (acc, item) => acc + item.quantity * item.price,
           0
         )
       : 0;
 
-  const boxesTotalPrice =
-    cartProducts.boxes.length > 0
-      ? cartProducts.boxes.reduce(
+  const embroideryTotalPrice =
+    cartProducts.embroidery.length > 0
+      ? cartProducts.embroidery.reduce(
           (acc, item) => acc + item.quantity * item.price,
           0
         )
       : 0;
 
-  const customTotalPrice =
-    cartProducts.customCandles.length > 0
-      ? cartProducts.customCandles.reduce(
-          (acc, item) => acc + item.quantity * item.price,
-          0
-        )
-      : 0;
+  const cartTotalPrice = decorationsTotalPrice + embroideryTotalPrice ?? 0;
 
-  const cartTotalPrice =
-    candlesTotalPrice + boxesTotalPrice + customTotalPrice ?? 0;
-
-  const addCandleToCart = useCallback(
-    ({ id, toastMessage, quantity = 1, price }: IAddCandleToCartParams) => {
+  const addDecorationsToCart = useCallback(
+    ({
+      id,
+      toastMessage,
+      quantity = 1,
+      price,
+    }: IAddDecorationsToCartParams) => {
       setCartProducts(prevItems => {
-        const isCandleInCart = prevItems.candles?.find(
-          candle => candle.id === id
+        const isDecorationsInCart = prevItems.decorations?.find(
+          decorations => decorations.id === id
         );
-        const updatedItems = isCandleInCart
+        const updatedItems = isDecorationsInCart
           ? {
               ...prevItems,
-              candles: prevItems.candles.map(candle => {
-                if (candle.id === id) {
+              decorations: prevItems.decorations.map(decoration => {
+                if (decoration.id === id) {
                   return {
-                    ...candle,
-                    quantity: candle.quantity + quantity,
+                    ...decoration,
+                    quantity: decoration.quantity + quantity,
                   };
                 }
-                return candle;
+                return decoration;
               }),
             }
           : {
               ...prevItems,
-              candles: [...prevItems?.candles, { id, quantity, price }],
+              decorations: [...prevItems?.decorations, { id, quantity, price }],
             };
         return updatedItems;
       });
@@ -161,72 +140,42 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
     [setCartProducts]
   );
 
-  const addBoxToCart = useCallback(
-    ({ id, toastMessage, aroma, quantity = 1, price }: IAddBoxToCartParams) => {
+  const addEmbroideryToCart = useCallback(
+    ({ id, toastMessage, quantity = 1, price }: IAddEmbroideryToCartParams) => {
       setCartProducts(prevItems => {
-        const isBoxInCart = prevItems.boxes.find(
-          boxes => boxes.id === id && boxes.aroma === aroma
+        const isEmbroideryInCart = prevItems.embroidery.find(
+          embroidery => embroidery.id === id
         );
-        const updatedItems = isBoxInCart
+        const updatedItems = isEmbroideryInCart
           ? {
               ...prevItems,
-              boxes: prevItems.boxes.map(box => {
-                if (box.id === id && box.aroma === aroma) {
+              embroidery: prevItems.embroidery.map(embroidery => {
+                if (embroidery.id === id) {
                   return {
-                    ...box,
-                    quantity: box.quantity + quantity,
+                    ...embroidery,
+                    quantity: embroidery.quantity + quantity,
                   };
                 }
-                return box;
+                return embroidery;
               }),
             }
           : {
               ...prevItems,
-              boxes: [...prevItems.boxes, { id, aroma, quantity, price }],
+              embroidery: [...prevItems.embroidery, { id, quantity, price }],
             };
         return updatedItems;
       });
 
-      showToast(`${toastMessage}`);
-    },
-    [setCartProducts]
-  );
-
-  const addCustomCandleToCart = useCallback(
-    ({ customCandle, toastMessage }: IAddCustomCandleToCartParams) => {
-      setCartProducts(prevItems => {
-        const isCustomCandleInCart = prevItems.customCandles?.find(
-          candle => candle.id === customCandle.id
-        );
-        const updatedItems = isCustomCandleInCart
-          ? {
-              ...prevItems,
-              customCandles: prevItems.customCandles.map(candle => {
-                if (candle.id === customCandle.id) {
-                  return {
-                    ...candle,
-                    quantity: candle.quantity + customCandle.quantity,
-                  };
-                }
-                return candle;
-              }),
-            }
-          : {
-              ...prevItems,
-              customCandles: [...prevItems?.customCandles, customCandle],
-            };
-        return updatedItems;
-      });
       showToast(`${toastMessage}`);
     },
     [setCartProducts]
   );
 
   const toggleQuantity = useCallback(
-    ({ id, value, type, aroma }: IToggleQuantityParams) => {
-      if (type === 'customCandle') {
+    ({ id, value, type }: IToggleQuantityParams) => {
+      if (type === 'decorations') {
         setCartProducts(prevItems => {
-          const updatedCustomCandles = prevItems.customCandles.map(item => {
+          const updatedDecorations = prevItems.decorations.map(item => {
             if (item.id === id && value === INCREMENT) {
               return { ...item, quantity: item.quantity + 1 };
             }
@@ -239,13 +188,13 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
             return item;
           });
 
-          return { ...prevItems, customCandles: updatedCustomCandles };
+          return { ...prevItems, decorations: updatedDecorations };
         });
       }
 
-      if (type === 'candle') {
+      if (type === 'embroidery') {
         setCartProducts(prevItems => {
-          const updatedCandles = prevItems.candles.map(item => {
+          const updatedEmbroidery = prevItems.embroidery.map(item => {
             if (item.id === id && value === INCREMENT) {
               return { ...item, quantity: item.quantity + 1 };
             }
@@ -258,26 +207,7 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
             return item;
           });
 
-          return { ...prevItems, candles: updatedCandles };
-        });
-      }
-
-      if (type === 'box') {
-        setCartProducts(prevItems => {
-          const updatedBoxes = prevItems.boxes.map(item => {
-            if (item.id === id && item.aroma === aroma && value === INCREMENT) {
-              return { ...item, quantity: item.quantity + 1 };
-            }
-            if (item.id === id && item.aroma === aroma && value === DECREMENT) {
-              return {
-                ...item,
-                quantity: item.quantity > 1 ? item.quantity - 1 : 1,
-              };
-            }
-            return item;
-          });
-
-          return { ...prevItems, boxes: updatedBoxes };
+          return { ...prevItems, embroidery: updatedEmbroidery };
         });
       }
     },
@@ -287,42 +217,37 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
   const deleteCartItem = ({
     id,
     type,
-    aroma,
+
     toastMessage,
   }: IDeleteCartItemParams) => {
-    if (type === 'customCandle') {
+    if (type === 'decorations') {
       setCartProducts(prevItems => {
-        const updatedCustomCandles = prevItems.customCandles.filter(
+        const updatedDecorations = prevItems.decorations.filter(
           item => item.id !== id
         );
-        return { ...prevItems, customCandles: updatedCustomCandles };
-      });
-    }
-
-    if (type === 'candle') {
-      setCartProducts(prevItems => {
-        const updatedCandles = prevItems.candles.filter(item => item.id !== id);
         return {
           ...prevItems,
-          candles: updatedCandles,
+          decorations: updatedDecorations,
         };
       });
     }
 
-    if (type === 'box') {
+    if (type === 'embroidery') {
       setCartProducts(prevItems => {
-        const boxIndex = prevItems.boxes.findIndex(
-          item => item.aroma === aroma && item.id === id
+        const embroideryIndex = prevItems.embroidery.findIndex(
+          item => item.id === id
         );
 
-        const updatedBoxes =
-          boxIndex !== -1
-            ? prevItems.boxes.filter((_, index) => index !== boxIndex)
-            : prevItems.boxes;
+        const updatedEmbroidery =
+          embroideryIndex !== -1
+            ? prevItems.embroidery.filter(
+                (_, index) => index !== embroideryIndex
+              )
+            : prevItems.embroidery;
 
         return {
           ...prevItems,
-          boxes: updatedBoxes,
+          embroidery: updatedEmbroidery,
         };
       });
     }
@@ -333,6 +258,8 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
   const clearCartProducts = useCallback(() => {
     setCartProducts(initCardProducts);
   }, [initCardProducts, setCartProducts]);
+
+  console.log("cartProducts", cartProducts);
 
   const contextValue = useMemo(
     () => ({
@@ -347,9 +274,8 @@ export const CartContextProvider = ({ children }: CartContextProps) => {
     <CartContext.Provider value={contextValue}>
       <CartActionsContext.Provider
         value={{
-          addCandleToCart,
-          addBoxToCart,
-          addCustomCandleToCart,
+          addDecorationsToCart,
+          addEmbroideryToCart,
           toggleQuantity,
           deleteCartItem,
           clearCartProducts,

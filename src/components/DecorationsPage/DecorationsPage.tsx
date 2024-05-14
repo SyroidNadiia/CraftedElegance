@@ -24,7 +24,7 @@ interface DecorationsPageI {
     filter: any;
   };
   lang: Locale;
-  decorations: Promise<CandleApiResponse>;
+  decorations: Promise<DecorationsApiResponse>;
   paginBtnDict: string;
 }
 
@@ -41,13 +41,9 @@ const DecorationsPage: React.FC<DecorationsPageI> = ({
       <WaxDesc dict={dictWax?.waxDesc} className={styles.waxDescAboveCandles} />
       <DecorationsSection
         dict={dict}
-        candles={decorations}
+        decorations={decorations}
         paginBtnDict={paginBtnDict}
       />
-      <Await promise={decorations}>
-        {({ totalPages }) => <Pagination totalPages={totalPages} />}
-      </Await>
-      <WaxDesc dict={dictWax?.waxDesc} className={styles.waxDescBelowCandles} />
     </>
   );
 };

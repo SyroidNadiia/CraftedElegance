@@ -5,7 +5,7 @@ import DecorationItemCard from '../DecorationItemCard/DecorationItemCard';
 import styles from './DecorationList.module.scss';
 
 interface DecorationListProps {
-  items: Promise<CandleApiResponse>;
+  items: Promise<DecorationsApiResponse>;
   paginBtnDict: string;
 }
 
@@ -13,22 +13,16 @@ const DecorationList: React.FC<DecorationListProps> = async ({
   items,
   paginBtnDict,
 }) => {
-  const { candles, totalPages } = await items;
+  const { decorations } = await items;
+
   return (
-    <>
-      {candles && candles.length > 0 ? (
-        <ul className={styles.list}>
-          {candles.map((item: DecorationDetailsI) => (
-            <DecorationItemCard key={item.id} {...item} />
-          ))}
-          <MobilePagination
-            totalPages={totalPages}
-            paginBtnDict={paginBtnDict}
-          />
-        </ul>
-      ) : null}
-    </>
+    <ul className={styles.list}>
+      {decorations.map((item: DecorationDetailsI) => (
+        <DecorationItemCard key={item.id} {...item} />
+      ))}
+    </ul>
   );
 };
+      
 
 export default DecorationList;

@@ -1,36 +1,27 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import CandleQuantity from '@components/components/shared/CandleQuantity/CandleQuantity';
+import CandleQuantity from '@components/components/shared/CandleQuantity/DecorationQuantity';
 import Price from '@components/components/shared/Price/Price';
 import Typography from '@components/components/Typography/Typography';
 import { useLangFromPathname } from '@components/hooks';
-import type {
-  configuratorSectionI,
-  CustomCandleDescription,
-  ProductDescription,
-} from '@components/types';
+import type { ProductDescription } from '@components/types';
 import { useCartActionsContext, useCartContext } from '@context/CartContext';
-import customCandleImg from '@images/create-your-own/custom.jpg';
 
 import styles from './ProductCard.module.scss';
-
-type TProperty = keyof CustomCandleDescription;
 
 interface ProductCardProps {
   deleteButtonText: string;
   id: string;
   images: string[];
   title: string;
-  description?: string | CustomCandleDescription;
+  description?: string;
   price: number;
   slug: string;
   key: string;
   descriptionPropertyNames: ProductDescription;
   itemDeletedToast: string;
-  dictParam: configuratorSectionI;
-  aroma?: number | IAroma;
-  handleDelete: ({ id, isBox, aroma }: IHandleDeleteParams) => void;
+  handleDelete: ({ id, isEmbroidery }: IHandleDeleteParams) => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -43,33 +34,25 @@ const ProductCard: React.FC<ProductCardProps> = ({
   deleteButtonText,
   descriptionPropertyNames: propertyNames,
   itemDeletedToast,
-  dictParam,
-  aroma,
   handleDelete,
 }) => {
   const { deleteCartItem } = useCartActionsContext();
   const { cartProducts, totalCartProducts } = useCartContext();
   const router = useRouter();
   const lang = useLangFromPathname();
-  const isCustomCandle = slug.includes('create-your-own');
-  const isCandle = slug.includes('candles');
-  const isBox = slug.includes('boxes');
+
+  const isDecoration = slug.includes('decorations');
+  const isEmbroidery = slug.includes('embroidery');
 
   const defineProductQuantity = () => {
-    if (isCustomCandle) {
-      return cartProducts.customCandles
+    if (isEmbroidery) {
+      return cartProducts.embroidery
         .filter(item => item.id === id)
         .reduce((acc, item) => acc + item.quantity, 0);
     }
 
-    if (isBox) {
-      return cartProducts.boxes
-        .filter(item => item.id === id && item.aroma === aroma)
-        .reduce((acc, item) => acc + item.quantity, 0);
-    }
-
-    if (isCandle) {
-      return cartProducts.candles
+    if (isDecoration) {
+      return cartProducts.decorations
         .filter(item => item.id === id)
         .reduce((acc, item) => acc + item.quantity, 0);
     }
@@ -80,21 +63,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
     description && typeof description === 'object' && Object.keys(description);
 
   const defineCartItemType = () => {
-    if (isBox) return 'box';
-    if (isCandle) return 'candle';
-    if (isCustomCandle) return 'customCandle';
+    if (isEmbroidery) return 'embroidery';
+    if (isDecoration) return 'decorations';
   };
 
   const handleRemoveCartItem = () => {
     handleDelete({
       id,
-      isBox,
-      aroma: typeof aroma === 'number' ? aroma : undefined,
     });
     deleteCartItem({
       id,
       type: defineCartItemType()!,
-      aroma: typeof aroma === 'number' ? aroma : undefined,
       toastMessage: itemDeletedToast,
     });
     if (totalCartProducts === 1) {
@@ -104,10 +83,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <li className={styles.card}>
-      <Link href={isCustomCandle ? `${slug}` : `${slug}/${id}`}>
+      <Link href={`${slug}/${id}`}>
         <div className={styles.card__img_container}>
           <Image
-            src={isCustomCandle ? customCandleImg : images[0]}
+            src={images[0]}
             fill
             priority
             alt={title}
@@ -122,27 +101,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className={styles.card__block}>
         <div className={styles.card__content}>
           <div className={styles.card__info}>
-            <Link href={isCustomCandle ? `${slug}` : `${slug}/${id}`}>
+            <Link href={`${slug}/${id}`}>
               <Typography variant="bodyRegular" className={styles.card__title}>
                 {title}
               </Typography>
             </Link>
-            {description && typeof description === 'string' && isCandle && (
+            {description && typeof description === 'string' && isDecoration && (
               <Typography
                 variant="bodyS"
                 color="var(--cl-gray-500)"
                 className={styles.card__description}
               >
                 {description}
-              </Typography>
-            )}
-            {isBox && (
-              <Typography
-                variant="bodyS"
-                color="var(--cl-gray-500)"
-                className={styles.card__description}
-              >
-                <span>{propertyNames.aroma} - </span>
               </Typography>
             )}
             {descriptionKeys && (
@@ -155,8 +125,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 {descriptionKeys.map((property, i) => {
                   return (
                     <span key={property}>
-                      {/* Display the property name using propertyNames dictionary */}
-                      {propertyNames[property as TProperty]} -{' '}
                       <span className={styles.pinkText}>
                         {/* Display the property value with pink text color */}
                       </span>
@@ -181,7 +149,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
             qty={Number(defineProductQuantity())}
             isCartQuantity
             type={defineCartItemType()}
-            aroma={typeof aroma === 'number' ? aroma : undefined}
           />
           <button type="button" onClick={handleRemoveCartItem}>
             <Typography variant="bodyS" className={styles.delete}>

@@ -99,9 +99,8 @@ interface CartApiRequest {
   ids: string[];
 }
 
-interface CandleApiResponse {
-  candles: CandleDetailsI[];
-  totalPages: number;
+interface DecorationsApiResponse {
+  decorations: DecorationsDetailsI[];
 }
 
 /*
@@ -126,7 +125,6 @@ interface BoxDetailsI {
   price: number;
   components: ComponentI[];
   description: string;
-  configuration?: CustomCandleDescription;
   slug: string;
   volume: string;
   text: string;
@@ -145,7 +143,7 @@ interface IAroma {
   baseNotes: string[];
 }
 
-interface CandleDetailsI {
+interface DecorationDetailsI {
   id: string;
   images: string[];
   title: string;
@@ -165,31 +163,27 @@ interface CandleDetailsI {
 
 interface IHandleDeleteParams {
   id: string;
-  isBox?: boolean;
-  aroma?: number;
+  isEmbroidery?: boolean;
 }
 
-interface ICartBox {
+interface ICartEmbroidery {
   id: string;
-  aroma: number;
   quantity: number;
   price: number;
 }
 
-interface ICartCandle {
+interface ICartDecoration {
   id: string;
   quantity: number;
   price: number;
 }
 
 interface ICartProducts {
-  boxes: ICartBox[];
-  candles: ICartCandle[];
-  customCandles: ICustomCandle[];
+  embroidery: ICartEmbroidery[];
+  decorations: ICartDecoration[];
 }
 
 interface ICartBoxProduct extends BoxDetailsI {
-  aroma: number;
   quantity: number;
 }
 
@@ -197,7 +191,7 @@ interface ICartCandleProduct extends CandleDetailsI {
   quantity: number;
 }
 
-type ICartProduct = ICartCandleProduct | ICartBoxProduct | ICustomCandle;
+type ICartProduct = ICartDecorationProduct | ICartEmbroideryProduct;
 
 
 interface DictSearchI {

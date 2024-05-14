@@ -1,8 +1,9 @@
-export const fetchCartCandles = async ({
+import { BASE_URL } from '@components/constants';
+export const fetchCartDecorations = async ({
   lang,
   ids,
-}: CartApiRequest): Promise<CandleDetailsI[]> => {
-  const response = await fetch(`/api/cart/candles?lang=${lang}`, {
+}: CartApiRequest): Promise<DecorationDetailsI[]> => {
+  const response = await fetch(`${BASE_URL}/cart`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

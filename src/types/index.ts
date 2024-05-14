@@ -6,7 +6,6 @@ export interface IBagsKit {
   container: string;
   wax: string;
   wick: string;
-  aromaToChoose: string;
   matchsticks: string;
 }
 
@@ -18,49 +17,27 @@ export interface BagsDetailsI {
   price: number;
   components: ComponentI[];
   description: string;
-  configuration?: CustomCandleDescription;
   slug: string;
-  volume: string;
-  text: string;
-  kit: IBagsKit;
 }
 
 export interface ComponentI {
   title: string;
   content: string;
 }
-
-export interface IAroma {
-  name: string;
-  topNotes: string[];
-  baseNotes: string[];
-}
-
 export interface DecorationDetailsI {
   id: string;
   images: string[];
   title: string;
   description: string;
+  quantity: number;
   price: number;
   slug: string;
-  name: string;
-  aroma: IAroma;
-  volume: string;
 }
 
-export type CustomCandleDescription = {
-  container: string | number;
-  wax: string | number;
-  aroma: string | number;
-  wick: string | number;
-  color: string | number;
-};
-
-export interface ICustomCandle {
+export interface ICustomDecoration {
   id: string;
   title: string;
-  description?: string | CustomCandleDescription;
-  configuration?: CustomCandleDescription;
+  description?: string;
   price: number;
   quantity: number;
   slug: string;
@@ -73,19 +50,6 @@ type parameterI = {
   images?: StaticImageData[];
   colors?: string[];
 };
-
-export type configuratorSectionI = {
-  container: parameterI;
-  wax: parameterI;
-  aroma: parameterI;
-  wick: parameterI;
-  color: parameterI;
-};
-
-export interface ConfiguratorSectionI {
-  dict: configuratorSectionI;
-  dictGeneral: generalI;
-}
 
 export interface ParameterI {
   dict: parameterI;
@@ -148,7 +112,6 @@ export interface ButtonsDictI {
 export interface ProductDescription {
   container: string;
   wax: string;
-  aroma: string;
   wick: string;
   color: string;
 }
@@ -245,7 +208,7 @@ export interface DecorationsSectionI {
   dict: {
     filter: FilterT;
   };
-  candles: Promise<CandleApiResponse>;
+  decorations: Promise<DecorationsApiResponse>;
   paginBtnDict: string;
 }
 
@@ -321,7 +284,6 @@ export interface CheckoutFormProps {
     notesPlaceholder: string;
     errorMessages: CheckoutFormValidation;
   };
-  dictParam: configuratorSectionI;
   toastDict: { [key: string]: string };
 }
 
@@ -373,7 +335,6 @@ export interface buildOrderDataI {
   dataForm: CheckoutFormValues;
   cartProducts: ICartProducts;
   cartTotalPrice: number;
-  dictParam: configuratorSectionI;
 }
 
 export interface EmbroiderySectionProps {
@@ -387,6 +348,7 @@ export interface EmbroideryDetailsI {
   id: string;
   name: string;
   description: string;
+  quantity: number;
   price: number;
   images: string[];
   slug: string;
@@ -401,5 +363,16 @@ export interface EmbroideryI {
   slug: string;
 }
 
+export interface DecorationDetailsI {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  images: string[];
+  slug: string;
+}
 
-// EmbroideryDetailsI;
+export interface ICartProducts {
+  decorations: DecorationDetailsI[];
+  embroidery: EmbroideryDetailsI[];
+}

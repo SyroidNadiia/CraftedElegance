@@ -1,10 +1,8 @@
 import Breadcrumbs from '@components/components/Breadcrumbs/Breadcrumbs';
 import DecorationDetailsSection from '@components/components/DecorationDetailsPage/DecorationDetailsSection/DecorationDetailsSection';
-import RelatedProducts from '@components/components/shared/RelatedProducts/RelatedProducts';
 import { convertToServerLocale } from '@components/helpers/convertToServerLocale';
 import { Locale } from '@i18n';
 import { fetchCandleById } from '@lib/api-services/fetchCandleById';
-import { fetchSimilarProducts } from '@lib/api-services/fetchSimilarProducts';
 import { getDictionary } from '@lib/utils/dictionary';
 
 export async function generateMetadata({
@@ -41,7 +39,6 @@ export default async function Decoration({
   const currentLang = convertToServerLocale(lang);
 
   const decoration = await fetchCandleById({ id, currentLang });
-  const similarProducts = await fetchSimilarProducts({ id, currentLang });
 
   return (
     <>
@@ -58,13 +55,13 @@ export default async function Decoration({
         ]}
         lang={lang}
       />
-      {/* <DecorationDetailsSection
+      <DecorationDetailsSection
         product={decoration}
         buttonsDict={buttons}
         toastMessages={messages}
         productDescriptionDict={productDescription}
       />
-      <RelatedProducts relatedProducts={similarProducts} title={title} /> */}
+      
     </>
   );
 }

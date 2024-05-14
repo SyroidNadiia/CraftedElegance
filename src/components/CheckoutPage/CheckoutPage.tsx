@@ -1,8 +1,7 @@
 import Container from '@components/components/Container/Container';
 import Section from '@components/components/Section/Section';
 import type {
-  CheckoutPageDictionary,
-  configuratorSectionI,
+  CheckoutPageDictionary
 } from '@components/types';
 
 import CheckoutForm from './CheckoutForm/CheckoutForm';
@@ -12,13 +11,11 @@ import styles from './CheckoutPage.module.scss';
 
 interface CheckoutPageProps {
   dict: CheckoutPageDictionary;
-  dictParam: configuratorSectionI;
   toastDict: { [key: string]: string };
 }
 
 const CheckoutPage: React.FC<CheckoutPageProps> = ({
   dict: { productList, form },
-  dictParam,
   toastDict,
 }) => {
   return (
@@ -26,10 +23,9 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({
       <Container className={styles.body}>
         <ProductList
           dict={productList}
-          dictParam={dictParam}
           itemDeletedToast={toastDict.itemDeleted}
         />
-        <CheckoutForm dict={form} dictParam={dictParam} toastDict={toastDict} />
+        <CheckoutForm dict={form} toastDict={toastDict} />
       </Container>
     </Section>
   );
